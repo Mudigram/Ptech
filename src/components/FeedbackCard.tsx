@@ -1,5 +1,7 @@
 'use client';
 
+import { useState } from 'react';
+
 type Props = {
     id: number;
     name: string;
@@ -18,6 +20,8 @@ export default function FeedbackCard({
     onFeedbackChange,
     onSubmit,
 }: Props) {
+    const [isCreating, setIsCreating] = useState(false);
+
     return (
         <div className="bg-white p-4 rounded shadow border border-gray-200">
             <h2 className="text-lg font-semibold text-gray-900">
@@ -26,7 +30,7 @@ export default function FeedbackCard({
 
             {feedback ? (
                 <p className="mt-2 text-green-500">✅ Feedback: {feedback}</p>
-            ) : (
+            ) : isCreating ? (
                 <>
                     <textarea
                         rows={3}
@@ -42,6 +46,13 @@ export default function FeedbackCard({
                         Submit Feedback
                     </button>
                 </>
+            ) : (
+                <button
+                    className="mt-2 bg-indigo-500 text-white px-3 py-1 rounded hover:bg-indigo-600"
+                    onClick={() => setIsCreating(true)}
+                >
+                    + Create Feedback
+                </button>
             )}
         </div>
     );
